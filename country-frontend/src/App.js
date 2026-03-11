@@ -9,6 +9,7 @@ const App = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [cities, setCities] = useState([]);
   const [cityIndex, setCityIndex] = useState(0);
+  const [maxCityIndex, setMaxCityIndex] = useState(0);
   useEffect(() => {
     axios
       .get("http://localhost:8080/countries")
@@ -29,6 +30,7 @@ const App = () => {
       .then((response) => {
         setCities(response.data);
         setLoading(false);
+        setMaxCityIndex(response.data.totalPages - 1);
       })
       .catch((err) => {
         setError(err.message);
@@ -67,7 +69,7 @@ const App = () => {
               ))}
             </ul>
             <Button onClick={() => setCityIndex(cityIndex-1)} disabled={cityIndex === 0}>Previous Page</Button>
-            <Button onClick={() => setCityIndex(cityIndex+1)}>Next Page</Button>
+            <Button onClick={() => setCityIndex(cityIndex+1)} disabled={cityIndex === maxCityIndex}>Next Page</Button>
           </div>
         ) : (
           <div>Select a country to see its cities</div>
