@@ -1,6 +1,5 @@
 package com.test.countries.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +13,6 @@ public class City {
     private Long id;
     @Column
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    @JsonIgnore
-    private Country country;
+    @Column(name = "country_id")
+    private Long countryId;
 }

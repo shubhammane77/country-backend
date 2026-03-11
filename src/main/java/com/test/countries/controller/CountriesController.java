@@ -3,8 +3,8 @@ package com.test.countries.controller;
 import com.test.countries.model.City;
 import com.test.countries.model.Country;
 import com.test.countries.service.CountryService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +24,10 @@ public class CountriesController {
 
     @GetMapping("/cities/{countryId}")
     @CrossOrigin
-    public List<City> countries(@PathVariable("countryId") Long countryId) {
-        return countryService.getCityList(countryId);
+    public Page<City> getCities(
+            @PathVariable("countryId") Long countryId,
+            @RequestParam("index") int index
+    ) {
+        return countryService.getCityList(countryId, index, 3);
     }
 }
